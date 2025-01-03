@@ -79,9 +79,6 @@ void TrimMessageHistory(List<ChatMessage> messageHistory, int tokenLimit)
         tokenCount += CountTokens(messageHistory[i].Content[0].Text);
         if (tokenCount > tokenLimit)
         {
-            Console.WriteLine(@$"******"
-                + $"\nMessage removed due to token limit. Current token count: {messageHistory[i].Content[0].Text}"
-                + $"\n******");
             messageHistory.RemoveAt(i);
         }
     }
