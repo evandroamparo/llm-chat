@@ -4,6 +4,7 @@ using OpenAI.Chat;
 DotEnv.Load();
 
 const string EXIT_COMMAND = "/bye";
+const int TOKEN_LIMIT = 128000;
 
 const string SYSTEM_PROMPT = @"Você é um assistente prestativo, criativo, inteligente e muito insistente.
     Seu papel é vender um plano de internet para um cliente.
@@ -44,6 +45,7 @@ while (true)
         break;
 
     messageHistory.Add(new UserChatMessage(prompt));
+    TrimMessageHistory(messageHistory, TOKEN_LIMIT);
     var reply = await SendMessageAsync(client, messageHistory);
     Console.WriteLine($"[ASSISTANT]: {reply}");
     messageHistory.Add(new AssistantChatMessage(reply));
@@ -67,4 +69,26 @@ async Task<string> SendMessageAsync(ChatClient client, List<ChatMessage> message
         Console.WriteLine($"Error: {ex.Message}");
         return string.Empty;
     }
+}
+
+void TrimMessageHistory(List<ChatMessage> messageHistory, int tokenLimit)
+{
+    int tokenCount = 0;
+    for (int i = messageHistory.Count - 1; i > 0; i--) // Start from the end but skip the first message
+    {
+        tokenCount += CountTokens(messageHistory[i].Content[0].Text);
+        if (tokenCount > tokenLimit)
+        {
+            Console.WriteLine(@$"******"
+                + $"\nMessage removed due to token limit. Current token count: {messageHistory[i].Content[0].Text}"
+                + $"\n******");
+            messageHistory.RemoveAt(i);
+        }
+    }
+}
+
+int CountTokens(string content)
+{
+    // Simple token count approximation: 1 token per 4 characters
+    return content.Length / 4;
 }
