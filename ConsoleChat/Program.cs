@@ -46,9 +46,9 @@ while (true)
 
     messageHistory.Add(new UserChatMessage(prompt));
     TrimMessageHistory(messageHistory, TOKEN_LIMIT);
-    var reply = await SendMessageAsync(client, messageHistory);
-    Console.WriteLine($"[ASSISTANT]: {reply}");
-    messageHistory.Add(new AssistantChatMessage(reply));
+    var response = await SendMessageAsync(client, messageHistory);
+    Console.WriteLine($"[ASSISTANT]: {response}");
+    messageHistory.Add(new AssistantChatMessage(response));
 }
 
 string ReadPrompt()
