@@ -31,6 +31,7 @@ Console.WriteLine("Bem vindo ao chat. Digite 'exit' para terminar a conversa.");
 
 while (true)
 {
+    Console.ForegroundColor = ConsoleColor.Green;
     Console.Write("> ");
 
     var prompt = Console.ReadLine();
@@ -46,6 +47,8 @@ while (true)
     AsyncCollectionResult<StreamingChatCompletionUpdate> response = chatClient.CompleteChatStreamingAsync(chatHistory);
 
     string text = "";
+    Console.ForegroundColor = ConsoleColor.White;
+    
     await foreach (var item in response)
     {
         if (item.ContentUpdate.Count > 0)
