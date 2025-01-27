@@ -14,7 +14,7 @@ It's currently using the free [Groq API](https://groq.com/).
 1. **Clone the repository:**
     ```sh
     git clone <repository-url>
-    cd ChatApp
+    cd llm-chat
     ```
 
 2. **Add User Secrets:**
