@@ -28,7 +28,7 @@ It's currently using the free [Groq API](https://groq.com/).
 
 You can get an API key from [Groq dev console](https://console.groq.com/keys).
 
-The available models are listed [here](https://console.groq.com/docs/models).
+The available models are listed [here](https://console.groq.com/docs/models). I suggest Llama because it has a larger context window.
 
 The OpenAI-compatible base URL can be found [here](https://console.groq.com/docs/openai).
 
